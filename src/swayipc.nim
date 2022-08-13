@@ -2,8 +2,8 @@ import commands, connection
 
 let conn = connection.connect()
 
-let res = conn.run_command("output DP-2 transform 270")
+let res = conn.get_tree
 
-echo res[0].success
+echo res
 
 conn.close()

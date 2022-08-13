@@ -25,16 +25,19 @@ type
     width*, height*, refresh*: int
 
   t_node = object
-    id*, current_border_width*, fullscreen_mode*, pid*, window*: int
-    name*, `type`*, border*, layout*, orientation*, representation*, app_id*, shell*: string
-    percent*: float
+    id*, current_border_width*: int
+    name*, `type`*, border*, layout*, orientation*: string
+    representation*, app_id*, shell*: Option[string]
+    fullscreen_mode*, pid*, window*: Option[int]
+    visible*, inhibit_idle*: Option[bool]
+    percent*: Option[float]
     rect*, window_rect*, deco_rect*, geometry*: t_rect
-    urgent*, sticky*, focused*, visible*, inhibit_idle*: bool
+    urgent*, sticky*, focused*: bool
     marks*: seq[string]
     focus*: seq[int]
     nodes*, floating_nodes*: seq[t_node]
-    idle_inhibitors*: t_idle_inhibitors
-    window_properties*: t_window_properties
+    idle_inhibitors*: Option[t_idle_inhibitors]
+    window_properties*: Option[t_window_properties]
 
   t_idle_inhibitors = object
     application*, user*: string
@@ -43,11 +46,13 @@ type
     class*, instance*, title*, transient_for*: string
 
   t_input = object
-    identifier*, name*, `type`*, xkb_active_layout_name*: string
-    vendor*, product*, xkb_active_layout_index*: int
-    xkb_layout_names*: seq[string]
-    scroll_factor*: float
-    libinput*: t_libinput
+    identifier*, name*, `type`*: string
+    xkb_active_layout_name*: Option[string]
+    vendor*, product*: int
+    xkb_active_layout_index*: Option[int]
+    xkb_layout_names*: Option[seq[string]]
+    scroll_factor*: Option[float]
+    libinput*: Option[t_libinput]
 
   t_seat = object
     name*: string
