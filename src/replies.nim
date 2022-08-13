@@ -70,10 +70,10 @@ type
 
   t_libinput = object
     send_events*, tap*, tap_button_map*, tap_drag*, tap_drag_lock*, accel_profile*, natural_scroll*, left_handed*, click_method*,
-      middle_emulation*, scroll_method*, dwt*: string
-    accel_speed*: cdouble
-    scroll_button*: int
-    calibration_matrix*: seq[float]
+      middle_emulation*, scroll_method*, dwt*: Option[string]
+    accel_speed*: Option[cdouble]
+    scroll_button*: Option[int]
+    calibration_matrix*: Option[seq[float]]
 
   # replies themselves
   r_run_command* = seq[t_command_status]

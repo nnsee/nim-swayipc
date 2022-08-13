@@ -2,8 +2,8 @@ import commands, connection
 
 let conn = connection.connect()
 
-let res = conn.get_tree
+echo conn.get_tree
 
-echo res
+echo conn.get_inputs
 
 conn.close()
