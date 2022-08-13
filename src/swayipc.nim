@@ -1,4 +1,4 @@
-import connection
+import commands, connection
 
 let conn = connection.connect()
 
