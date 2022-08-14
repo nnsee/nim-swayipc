@@ -1,3 +1,5 @@
-import commands, connection
+import swayipc/connection
+export connection.close
 
-export commands, connection
+proc newSwayConnection*(): Connection =
+  connection.connect()

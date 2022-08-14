@@ -2,12 +2,12 @@ import std/options
 
 type
   # objects that can be found in replies
-  t_command_status = object
+  t_command_status* = object
     success*: bool
     parse_error*: Option[bool]
     error*: Option[string]
 
-  t_workspace = object
+  t_workspace* = object
     num*: int
     name*, output*: string
     visible*, focused*, urgent*: bool
@@ -16,15 +16,15 @@ type
   t_rect = object
     x*, y*, width*, height*: int
 
-  t_output = object
+  t_output* = object
     name*, make*, model*, serial*, subpixel_hinting*, transform*, current_workspace*: string
     active*, dpms*, primary*: bool
     modes*: seq[t_mode]
 
-  t_mode = object
+  t_mode* = object
     width*, height*, refresh*: int
 
-  t_node = object
+  t_node* = object
     id*, current_border_width*: int
     name*, `type`*, border*, layout*, orientation*: string
     representation*, app_id*, shell*: Option[string]
@@ -39,13 +39,13 @@ type
     idle_inhibitors*: Option[t_idle_inhibitors]
     window_properties*: Option[t_window_properties]
 
-  t_idle_inhibitors = object
+  t_idle_inhibitors* = object
     application*, user*: string
 
-  t_window_properties = object
+  t_window_properties* = object
     class*, instance*, title*, transient_for*: string
 
-  t_input = object
+  t_input* = object
     identifier*, name*, `type`*: string
     xkb_active_layout_name*: Option[string]
     vendor*, product*: int
@@ -54,21 +54,21 @@ type
     scroll_factor*: Option[float]
     libinput*: Option[t_libinput]
 
-  t_seat = object
+  t_seat* = object
     name*: string
     capabilities*, focus*: int
     devices*: r_get_inputs
 
-  t_colors = object
+  t_colors* = object
     background*, statusline*, separator*, focused_background*, focused_statusline*, focused_separator*, focused_workspace_text*,
       focused_workspace_bg*, focused_workspace_border*, active_workspace_text*, active_workspace_bg*, active_workspace_border*,
       inactive_workspace_text*, inactive_workspace_bg*, inactive_workspace_border*, urgent_workspace_text*, urgent_workspace_bg*,
       urgent_workspace_border*, binding_mode_text*, binding_mode_bg*, binding_mode_border*: string
 
-  t_gaps = object
+  t_gaps* = object
     top*, right*, bottom*, left*: int
 
-  t_libinput = object
+  t_libinput* = object
     send_events*, tap*, tap_button_map*, tap_drag*, tap_drag_lock*, accel_profile*, natural_scroll*, left_handed*, click_method*,
       middle_emulation*, scroll_method*, dwt*: Option[string]
     accel_speed*: Option[cdouble]
