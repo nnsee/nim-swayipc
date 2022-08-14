@@ -6,10 +6,12 @@ type Connection* = object
   socket_location: string
   socket*: Socket
 
-proc connect*(): Connection =
-  let socket_location = getEnv("SWAYSOCK")
+proc connect*(socket_path = ""): Connection =
+  var socket_location = socket_path
   if len(socket_location) == 0:
-    raise newException(OSError, "SWAYSOCK variable not set")
+    socket_location = getEnv("SWAYSOCK")
+    if len(socket_location) == 0:
+      raise newException(OSError, "SWAYSOCK variable not set and socket path not provided")
 
   let socket = newSocket(AF_UNIX, SOCK_STREAM, IPPROTO_IP)
   socket.connectUnix(socket_location)
