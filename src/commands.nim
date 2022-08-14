@@ -3,7 +3,6 @@ from messages import MESSAGE
 import replies
 import std/json
 import std/net
-import flatty/binny
 
 const MAGIC = "i3-ipc"
 
@@ -11,6 +10,11 @@ type Response = object
   payload_len: int
   message_type: MESSAGE
   payload: string
+
+proc read_as_uint32(b: string): int {.inline.} =
+  var t: uint32
+  copyMem(t.addr, b[0].unsafeAddr, 4)
+  return t.int
 
 proc send_message(c: Connection, message_type: MESSAGE, payload = "") =
   c.socket.send(MAGIC)
@@ -23,8 +27,8 @@ proc send_message(c: Connection, message_type: MESSAGE, payload = "") =
 proc recv_response(c: Connection): Response =
   let magic = c.socket.recv(len(MAGIC))
   assert magic == MAGIC  # todo: dirty
-  let payload_len = c.socket.recv(4).readUint32(0).int
-  let message_type = MESSAGE(c.socket.recv(4).readUint32(0).int)
+  let payload_len = c.socket.recv(4).read_as_uint32
+  let message_type = MESSAGE(c.socket.recv(4).read_as_uint32)
   let payload = c.socket.recv(payload_len)
 
   return Response(
