@@ -14,7 +14,7 @@ proc connect*(): Connection =
   let socket = newSocket(AF_UNIX, SOCK_STREAM, IPPROTO_IP)
   socket.connectUnix(socket_location)
 
-  return Connection(
+  Connection(
     socket_location: socket_location,
     socket: socket
   )
