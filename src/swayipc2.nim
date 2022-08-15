@@ -1,4 +1,4 @@
-import swayipc/connection
+import swayipc2/connection
 export connection.close
 
 proc newSwayConnection*(): Connection =

@@ -1,3 +1,3 @@
 import unittest
 
-import swayipc
+import swayipc2
