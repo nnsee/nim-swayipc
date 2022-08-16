@@ -1,5 +1,3 @@
 import swayipc2/connection
-export connection.close
 
-proc newSwayConnection*(): Connection =
-  connection.connect()
+export connection.connect, connection.connect_async, connection.close
