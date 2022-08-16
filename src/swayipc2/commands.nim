@@ -1,5 +1,6 @@
 import connection
 import messages
+import events
 import replies
 import std/[asyncdispatch, asyncnet, json, net]
 
@@ -39,6 +40,29 @@ proc recv_response(c: Connection|AsyncConnection): Future[Response] {.multisync.
       message_type: message_type,
       payload: payload
     )
+
+proc processEvent*(r: Response): e_workspace | e_mode | e_window | e_barconfig_update | e_binding | e_shutdown | e_tick | e_bar_state_update | e_input =
+  var ev = case EVENT(r.message_type):
+    of WORKSPACE:
+      e_workspace
+    of MODE:
+      e_mode
+    of WINDOW:
+      e_window
+    of BARCONFIG_UPDATE:
+      e_barconfig_update
+    of BINDING:
+      e_binding
+    of SHUTDOWN:
+      e_shutdown
+    of TICK:
+      e_tick
+    of BAR_STATE_UPDATE:
+      e_bar_state_update
+    of INPUT:
+      e_input
+  let res = parseJson(r.payload)
+  return to(res, ev)
 
 proc send_recv(c: Connection|AsyncConnection, m: MESSAGE, payload = ""): Future[JsonNode] {.multisync.} =
   await c.send_message(m, payload)
