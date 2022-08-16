@@ -38,5 +38,5 @@ proc connect_async*(socket_path = ""): Future[AsyncConnection] {.async.} =
     socket: socket
   )
 
-proc close*(c: Connection or AsyncConnection) =
+proc close*(c: Connection|AsyncConnection) =
   c.socket.close()
