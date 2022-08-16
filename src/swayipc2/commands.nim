@@ -40,7 +40,6 @@ proc recv_response(c: Connection|AsyncConnection): Future[Response] {.multisync.
       payload: payload
     )
 
-
 proc send_recv(c: Connection|AsyncConnection, m: MESSAGE, payload = ""): Future[JsonNode] {.multisync.} =
   await c.send_message(m, payload)
   let res = parseJson((await c.recv_response()).payload)
@@ -52,7 +51,8 @@ proc run_command*(c: Connection|AsyncConnection, command: string): Future[r_run_
 proc get_workspaces*(c: Connection|AsyncConnection): Future[r_get_workspaces] {.multisync.} =
   return to(await c.send_recv(MESSAGE.GET_WORKSPACES), r_get_workspaces)
 
-# todo: implement subscribe
+proc subscribe*(c: Connection|AsyncConnection, events: seq[EVENT]): Future[r_subscribe] {.multisync.} =
+  return to(await c.send_recv(MESSAGE.SUBSCRIBE, $(%*events)), r_subscribe)
 
 proc get_outputs*(c: Connection|AsyncConnection): Future[r_get_outputs] {.multisync.} =
   return to(await c.send_recv(MESSAGE.GET_OUTPUTS), r_get_outputs)

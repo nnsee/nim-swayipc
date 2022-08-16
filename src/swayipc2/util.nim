@@ -1,5 +1,8 @@
 import replies
-import std/options
+import std/[asyncdispatch, asyncnet, options]
+
+type EventListener* = object
+  socket: AsyncSocket
 
 template add_node_and_check(node: t_node) =
   result.add(node)
