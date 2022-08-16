@@ -43,7 +43,7 @@ proc recv_response(c: Connection|AsyncConnection): Future[Response] {.multisync.
 
 proc processEvent*(r: Response): e_workspace | e_mode | e_window | e_barconfig_update | e_binding |
     e_shutdown | e_tick | e_bar_state_update | e_input =
-  var ev = case EVENT(r.message_type):
+  let ev = case EVENT(r.message_type):
     of WORKSPACE:
       e_workspace
     of MODE:
