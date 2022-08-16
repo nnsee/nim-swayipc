@@ -9,11 +9,11 @@ type AsyncConnection* = object
   socket_location: string
   socket*: AsyncSocket
 
-proc get_sock_path(socket_path: string): string {.inline.} =
-  var socket_location = socket_path
-  if len(socket_location) == 0:
-    socket_location = getEnv("SWAYSOCK")
-    if len(socket_location) == 0:
+proc get_sock_path(socket_path = ""): string {.inline.} =
+  result = socket_path
+  if len(result) == 0:
+    result = getEnv("SWAYSOCK")
+    if len(result) == 0:
       raise newException(OSError, "SWAYSOCK variable not set and socket path not provided")
 
 proc connect*(socket_path = ""): Connection =
