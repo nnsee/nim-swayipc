@@ -43,7 +43,8 @@ type
     application*, user*: string
 
   t_window_properties* = object
-    class*, instance*, title*, transient_for*: string
+    class*, instance*, title*: string
+    transient_for*: int
 
   t_input* = object
     identifier*, name*, `type`*: string
