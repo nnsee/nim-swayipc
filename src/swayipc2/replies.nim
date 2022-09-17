@@ -44,7 +44,7 @@ type
 
   t_window_properties* = object
     class*, instance*, title*: string
-    transient_for*: int
+    transient_for*: Option[int]
 
   t_input* = object
     identifier*, name*, `type`*: string
